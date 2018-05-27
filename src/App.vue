@@ -1,20 +1,35 @@
 <template>
-	<div id="app">
-		<header class="header" />
-		<div class="view">
-			<transition name="fade" mode="out-in">
-				<item-list />
-			</transition>
-		</div>
-	</div>
+  <div id="app">
+    <header class="header" />
+    <div class="view">
+      <transition name="fade" mode="out-in">
+        <item-list />
+      </transition>
+    </div>
+    <modal v-if="displayModal" v-on:close-modal="closeModal" />
+    <Form />
+  </div>
 </template>
 
 <script>
 import ItemList from './views/ItemList.vue'
+import Modal from './components/Modal.vue'
+import Form from './components/Form.vue'
 
 export default {
   components: {
-    ItemList
+    ItemList,
+    Modal,Form
+  },
+  data () {
+    return {
+      displayModal: true
+    }
+  },
+  methods: {
+    closeModal () {
+      this.displayModal = false
+    }
   }
 }
 </script>
