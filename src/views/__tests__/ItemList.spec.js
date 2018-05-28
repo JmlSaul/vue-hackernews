@@ -1,5 +1,5 @@
 jest.mock('../../api/api.js')
-import { shallow } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
 import ItemList from '../ItemList.vue'
 import Item from '../../components/Item.vue'
@@ -12,7 +12,7 @@ describe('ItemList.vue', () => {
     }
     const items = [ {}, {} ]
     fetchListData.mockImplementation(() => Promise.resolve(items))
-    const wrapper = shallow(ItemList, {mocks: {$bar}})
+    const wrapper = shallowMount(ItemList, {mocks: {$bar}})
     await flushPromises()
     expect(wrapper.findAll(Item).length).toEqual(items.length)
   })
@@ -23,7 +23,7 @@ describe('ItemList.vue', () => {
     }
     const items = [{ id: 1 }, { id: 2 }, { id: 3 }]
     fetchListData.mockImplementation(() => Promise.resolve(items))
-    const wrapper = shallow(ItemList, {mocks: {$bar}})
+    const wrapper = shallowMount(ItemList, {mocks: {$bar}})
     await flushPromises()
     const Items = wrapper.findAll(Item)
     Items.wrappers.forEach((wrapper, i) => {
@@ -34,7 +34,7 @@ describe('ItemList.vue', () => {
     const $bar = {start: jest.fn(),
       finish: () => {}
     }
-    shallow(ItemList, {mocks: {$bar}})
+    shallowMount(ItemList, {mocks: {$bar}})
     expect($bar.start).toHaveBeenCalled()
   })
   test('calls $bar.fail when load unsuccessful', async () => {
@@ -43,7 +43,7 @@ describe('ItemList.vue', () => {
       fail: jest.fn()
     }
     fetchListData.mockImplementation(() => Promise.reject())
-    shallow(ItemList, {mocks: {$bar}})
+    shallowMount(ItemList, {mocks: {$bar}})
     await flushPromises()
     expect($bar.fail).toHaveBeenCalled()
   })
@@ -53,7 +53,7 @@ describe('ItemList.vue', () => {
       finish: jest.fn()
     }
     fetchListData.mockImplementation(() => Promise.resolve())
-    shallow(ItemList, {mocks: {$bar}})
+    shallowMount(ItemList, {mocks: {$bar}})
     await flushPromises()
     expect($bar.finish).toHaveBeenCalled()
   })

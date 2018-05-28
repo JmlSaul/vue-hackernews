@@ -7,7 +7,6 @@ import {
 describe('Child.vue', () => {
   test('child test prop', () => {
     const wrapper = shallowMount(TestComponent)
-    debugger
     expect(wrapper.find(Child).props().testProp).toBe('some-value')
   })
 })

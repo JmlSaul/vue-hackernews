@@ -1,4 +1,4 @@
-import { shallow } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import Item from '../Item.vue'
 
 describe('Item.vue', () => {
@@ -6,7 +6,7 @@ describe('Item.vue', () => {
     const item = {
       score: 10
     }
-    const wrapper = shallow(Item, {
+    const wrapper = shallowMount(Item, {
       propsData: { item }
     })
     expect(wrapper.text()).toContain(item.score)
@@ -16,7 +16,7 @@ describe('Item.vue', () => {
     const item = {
       by: 'some author'
     }
-    const wrapper = shallow(Item, {
+    const wrapper = shallowMount(Item, {
       propsData: { item }
     })
     expect(wrapper.text()).toContain(item.by)
@@ -26,7 +26,7 @@ describe('Item.vue', () => {
     const item = {
       url: 'http://some-url.com'
     }
-    const wrapper = shallow(Item, {
+    const wrapper = shallowMount(Item, {
       propsData: { item }
     })
     expect(wrapper.text()).toContain(item.url)
@@ -36,7 +36,7 @@ describe('Item.vue', () => {
     const item = {
       title: 'some title'
     }
-    const wrapper = shallow(Item, {
+    const wrapper = shallowMount(Item, {
       propsData: { item }
     })
     expect(wrapper.find('a').text()).toBe(item.title)
@@ -46,7 +46,7 @@ describe('Item.vue', () => {
     const item = {
       url: 'http://some-url.com'
     }
-    const wrapper = shallow(Item, {
+    const wrapper = shallowMount(Item, {
       propsData: { item }
     })
     const aWrapper = wrapper.find('a')

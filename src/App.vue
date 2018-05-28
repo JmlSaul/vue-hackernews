@@ -19,7 +19,8 @@ import Form from './components/Form.vue'
 export default {
   components: {
     ItemList,
-    Modal,Form
+    Modal,
+    Form
   },
   data () {
     return {
