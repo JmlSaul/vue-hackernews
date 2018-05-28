@@ -1,30 +1,17 @@
 import Vue from 'vue'
 import App from './App'
-import {
-  fetchListData
-} from './api/api'
+import ProgressBar from './components/ProgressBar'
+import axios from 'axios'
 
 Vue.config.productionTip = false
 
-function getTopItems () {
-  return new Promise(resolve => {
-    return resolve([{
-      title: 'ttt',
-      url: 'dsf'
-    }, {
-      title: '2342',
-      url: 'cc'
-    }])
-  })
-  // return fetchListData('top')
-  //   .then(items => items)
-}
+const bar = new Vue(ProgressBar).$mount()
+Vue.prototype.$bar = bar
+document.body.appendChild(bar.$el)
 
-getTopItems().then(res => {
-  window.items = res
-  console.log(res)
-  new Vue({
-    el: '#app',
-    render: h => h(App)
-  })
+Vue.prototype.axios = axios
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
 })
