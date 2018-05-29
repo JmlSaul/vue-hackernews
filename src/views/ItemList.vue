@@ -8,7 +8,7 @@
 
 <script>
 import Item from '../components/Item.vue'
-import { fetchListData } from '../api/api'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -17,20 +17,24 @@ export default {
   beforeMount () {
     this.loadItems()
   },
-  data () {
-    return {
-      displayItems: []
+  computed: {
+    displayItems () {
+      return this.$store.getters.displayItems
     }
   },
   methods: {
+    ...mapActions(['fetchListData']),
     loadItems () {
       this.$bar.start()
-      fetchListData('top')
-        .then(items => {
-          this.displayItems = items
+      this.fetchListData({
+        type: 'top'
+      })
+        .then(() => {
           this.$bar.finish()
         })
-        .catch(() => this.$bar.fail())
+        .catch(() => {
+          this.$bar.fail()
+        })
     }
   }
 }
