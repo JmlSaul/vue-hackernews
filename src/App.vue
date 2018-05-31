@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <div id="app">
     <header class="header" />
     <div class="view">
@@ -8,6 +8,23 @@
     </div>
     <modal v-if="displayModal" v-on:close-modal="closeModal" />
     <Form />
+  </div>
+</template>-->
+<template>
+  <div id="app">
+    <header class="header">
+      <nav class="inner">
+        <router-link to="/top">Top</router-link>
+        <router-link to="/new">New</router-link>
+        <router-link to="/show">Show</router-link>
+        <router-link to="/ask">Ask</router-link>
+        <router-link to="/job">Jobs</router-link>
+      </nav>
+    </header>
+    <div class="view">
+      <router-view :key="$route.fullPath" />
+    </div>
+    <modal v-if="displayModal" v-on:close-modal="closeModal" />
   </div>
 </template>
 

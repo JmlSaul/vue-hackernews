@@ -28,15 +28,32 @@ function fetch (child) {
   }
 }
 
+function fakeFetchListData (type) {
+  var data = []
+  var count = type !== 'top' ? type !== 'new' ? type !== 'show' ? type !== 'ask' ? type !== 'job' ? 130 : 310 : 250 : 370 : 190 : 110
+  for (var i = 1; i <= count; i++) {
+    data.push({
+      by: 'author' + i,
+      descendants: 28,
+      id: 17175634 + i,
+      score: i,
+      title: type + ' title ' + i,
+      type: 'story ' + i,
+      url: `https://www.theatlantic.com/health/archive/2017/11/url${i}/545786/?single_page=true`
+    })
+  }
+  console.log(data)
+  return Promise.resolve(data)
+}
+
 export function fetchListData (type) {
-  return fetchIdsByType(type)
-    .then((ids) => fetchItems(ids))
+  return fakeFetchListData(type)
+  // return fetchIdsByType(type)
+  //   .then((ids) => fetchItems(ids))
 }
 
 export function fetchIdsByType (type) {
-  return api.cachedIds && api.cachedIds[type]
-    ? Promise.resolve(api.cachedIds[type])
-    : fetch(`${type}stories`)
+  return api.cachedIds && api.cachedIds[type] ? Promise.resolve(api.cachedIds[type]) : fetch(`${type}stories`)
 }
 
 export function fetchItem (id) {
