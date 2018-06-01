@@ -3,10 +3,10 @@
     <div class="item-list">
       <item v-for="item in displayItems" :key="item.id" :item="item" />
     </div>
-    <router-link v-if="page > 1" :to="`/${type}/${page-1}`">&lt; prev</router-link>
+    <router-link v-if="page > 1" :to="`/${computedType}/${page-1}`">&lt; prev</router-link>
     <a v-else>&lt; prev</a>
     <span>{{ page }}/{{ maxPage }}</span>
-    <router-link v-if="page < maxPage" :to="`/${type}/${page+1}`">more &gt; </router-link>
+    <router-link v-if="page < maxPage" :to="`/${computedType}/${page+1}`">more &gt; </router-link>
     <a v-else>more &gt;</a>
   </div>
 </template>
@@ -15,8 +15,15 @@
 import Item from '../components/Item.vue'
 import { mapActions } from 'vuex'
 
+function capitalizeFirstLetter (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
 export default {
   props: ['type'],
+  title () {
+    return `${capitalizeFirstLetter(this.computedType)}`
+  },
   components: {
     Item
   },
@@ -24,6 +31,9 @@ export default {
     this.loadItems()
   },
   computed: {
+    computedType () {
+      return this.type || this.$route.params.type
+    },
     displayItems () {
       return this.$store.getters.displayItems
     },
@@ -38,10 +48,10 @@ export default {
     ...mapActions(['fetchListData']),
     loadItems () {
       this.$bar.start()
-      this.fetchListData({ type: this.type })
+      this.fetchListData({ type: this.computedType })
         .then(() => {
           if (this.page < 0 || this.page > this.maxPage) {
-            this.$router.replace(`/${this.type}/1`)
+            this.$router.replace(`/${this.computedType}/1`)
             return
           }
           this.$bar.finish()

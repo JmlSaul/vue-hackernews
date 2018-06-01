@@ -8,12 +8,14 @@ import flushPromises from 'flush-promises'
 import ItemList from '../ItemList.vue'
 import Item from '../../components/Item.vue'
 import merge from 'lodash.merge'
+import { titleMixin } from '../../util/mixins'
 
 jest.mock('../../api/api.js')
 
 describe('ItemList.vue', () => {
   const localVue = createLocalVue()
   localVue.use(Vuex)
+  localVue.mixin(titleMixin)
 
   function createStore (overrides) {
     const defaultStoreConfig = {
@@ -274,5 +276,10 @@ describe('ItemList.vue', () => {
     })
     expect(wrapper.findAll('a').at(1).attributes().href).toBe(undefined)
     expect(wrapper.findAll('a').at(1).text()).toBe('more >')
+  })
+
+  test('Sets document.title with the capitalized type prop', () => {
+    createWrapper()
+    expect(document.title).toBe('Vue HN | Top')
   })
 })

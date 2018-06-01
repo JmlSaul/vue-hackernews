@@ -5,5 +5,6 @@ export default [
  { path: '/show/:page?', component: ItemList, props: {type: 'show'} },
  { path: '/ask/:page?', component: ItemList, props: {type: 'ask'} },
  { path: '/job/:page?', component: ItemList, props: {type: 'job'} },
+ { path: '/:type/:page?', component: ItemList },
  { path: '/', redirect: '/top' }
 ]

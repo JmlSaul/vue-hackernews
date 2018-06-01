@@ -7,12 +7,17 @@ import storeConfig from './store/store-config'
 import Router from 'vue-router'
 import routerConfig from './router/router-config'
 import { sync } from 'vuex-router-sync'
+import { titleMixin } from './util/mixins'
+import { timeAgo, host } from './util/filters'
 
 Vue.use(Vuex)
 const store = new Vuex.Store(storeConfig)
 Vue.use(Router)
 const router = new Router(routerConfig)
 sync(store, router)
+Vue.mixin(titleMixin)
+Vue.filter('timeAgo', timeAgo)
+Vue.filter('host', host)
 
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
