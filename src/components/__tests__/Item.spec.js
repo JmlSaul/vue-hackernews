@@ -73,4 +73,46 @@ describe('Item.vue', () => {
     })
     expect(wrapper.text()).toContain('(some-url.com)')
   })
+
+  test('renders correctly', () => {
+    const dateNow = jest.spyOn(Date, 'now')
+    const dateNowTime = new Date('2018')
+    dateNow.mockImplementation(() => dateNowTime)
+    const item = {
+      by: 'eddyerburgh',
+      id: 11122233,
+      score: 10,
+      time: (dateNowTime / 1000) - 600,
+      title: 'vue-test-utils is released',
+      type: 'story',
+      url: 'https://vue-test-utils.vuejs.org/'
+    }
+    const wrapper = shallowMount(Item, {
+      propsData: {
+        item
+      }
+    })
+    dateNow.mockRestore()
+    expect(wrapper.html()).toMatchSnapshot()
+  })
+
+  test('renders correctly when item has no url', () => {
+    const dateNow = jest.spyOn(Date, 'now')
+    const dateNowTime = new Date('2018')
+    dateNow.mockImplementation(() => dateNowTime)
+    const item = {
+      by: 'eddyerburgh',
+      id: 11122233,
+      score: 10,
+      time: (dateNowTime / 1000) - 600,
+      title: 'vue-test-utils is released'
+    }
+    const wrapper = shallowMount(Item, {
+      propsData: {
+        item
+      }
+    })
+    dateNow.mockRestore()
+    expect(wrapper.html()).toMatchSnapshot()
+  })
 })
