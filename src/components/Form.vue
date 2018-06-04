@@ -20,13 +20,11 @@ export default {
     selected: 'A'
   }),
   methods: {
-    onSubmit(event) {
-      debugger
+    onSubmit (event) {
       this.axios.post('http://demo7437963.mockable.io/validate', {
         email: this.email,
         enterCompetition: this.enterCompetition === 'yes'
       })
-      debugger
       this.$emit('form-submitted')
     }
   }

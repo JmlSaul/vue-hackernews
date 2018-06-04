@@ -1,6 +1,6 @@
 import Form from '../Form.vue'
 import {
-  shallow
+  shallowMount
 } from '@vue/test-utils'
 
 describe('Form.vue', () => {
@@ -8,7 +8,7 @@ describe('Form.vue', () => {
     const axios = {
       post: jest.fn()
     }
-    const wrapper = shallow(Form, {
+    const wrapper = shallowMount(Form, {
       mocks: {
         axios
       }
@@ -21,7 +21,7 @@ describe('Form.vue', () => {
     const axios = {
       post: jest.fn()
     }
-    const wrapper = shallow(Form, {
+    const wrapper = shallowMount(Form, {
       mocks: {
         axios
       }
@@ -39,7 +39,7 @@ describe('Form.vue', () => {
     const axios = {
       post: jest.fn()
     }
-    const wrapper = shallow(Form, {
+    const wrapper = shallowMount(Form, {
       mocks: {
         axios
       }
@@ -58,7 +58,7 @@ describe('Form.vue', () => {
   })
 
 //   test('select', () => {
-//     wrapper = shallow(SelectForm)
+//     wrapper = shallowMount(SelectForm)
 //     wrapper.findAll('option').at(1).element.selected = true
 //     wrapper.find('select').trigger('change')
 //   })
